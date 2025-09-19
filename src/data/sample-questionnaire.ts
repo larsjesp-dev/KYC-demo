@@ -19,10 +19,84 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
           order: 1,
           subgroups: [
             {
+              id: 'consumer-general-personal-info',
+              title: 'Personuppgifter & Adress',
+              description: 'Personal information and address details',
+              order: 1,
+              questions: [
+                {
+                  id: 'personal-number',
+                  text: 'Personnummer',
+                  type: 'freetext',
+                  required: true,
+                  order: 1,
+                  textConfig: {
+                    placeholder: 'ÅÅMMDD-XXXX',
+                    maxLength: 13
+                  }
+                },
+                {
+                  id: 'full-name',
+                  text: 'Fullständigt namn - för, mellan, efternamn',
+                  type: 'freetext',
+                  required: true,
+                  order: 2,
+                  textConfig: {
+                    placeholder: 'Ange ditt fullständiga namn',
+                    maxLength: 100
+                  }
+                },
+                {
+                  id: 'mobile-phone',
+                  text: 'Mobil privat/jobb',
+                  type: 'freetext',
+                  required: true,
+                  order: 3,
+                  textConfig: {
+                    placeholder: 'Ange mobilnummer',
+                    maxLength: 20
+                  }
+                },
+                {
+                  id: 'email',
+                  text: 'E-post privat/jobb',
+                  type: 'freetext',
+                  required: true,
+                  order: 4,
+                  textConfig: {
+                    placeholder: 'Ange e-postadress',
+                    maxLength: 100
+                  }
+                },
+                {
+                  id: 'registered-address',
+                  text: 'Folkbokföringsadress - Adress, Postnummer, Ort',
+                  type: 'freetext',
+                  required: true,
+                  order: 5,
+                  textConfig: {
+                    placeholder: 'Ange din folkbokföringsadress',
+                    maxLength: 200
+                  }
+                },
+                {
+                  id: 'other-address',
+                  text: 'Annan adress - Särskild adress/tillfällig',
+                  type: 'freetext',
+                  required: false,
+                  order: 6,
+                  textConfig: {
+                    placeholder: 'Ange annan adress (valfritt)',
+                    maxLength: 200
+                  }
+                }
+              ]
+            },
+            {
               id: 'consumer-general-economy',
               title: 'Frågor om din ekonomi',
               description: 'Questions about your economy',
-              order: 1,
+              order: 2,
               questions: [
                 {
                   id: 'monthly-income',
@@ -80,7 +154,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
               id: 'consumer-general-citizenship',
               title: 'Frågor om medborgarskap',
               description: 'Questions about citizenship',
-              order: 2,
+              order: 3,
               questions: [
                 {
                   id: 'citizenship',
@@ -131,7 +205,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
               id: 'consumer-general-tax',
               title: 'Frågor om skatterättslig hemvist',
               description: 'Questions about tax residence',
-              order: 3,
+              order: 4,
               questions: [
                 {
                   id: 'us-citizen',
@@ -204,7 +278,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
               id: 'consumer-general-pep',
               title: 'Frågor om PEP/nära familjemedlem eller känd medarbetare till en PEP',
               description: 'Questions about Politically Exposed Persons',
-              order: 4,
+              order: 5,
               questions: [
                 {
                   id: 'pep-status',
@@ -576,7 +650,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
               questions: [
                 {
                   id: 'account-depositors',
-                  text: 'Vem kommer att göra insättningar på kontot? (Flera svarsalternativ är möjliga)',
+                  text: 'Vem kommer att göra återbetalningar på kontot? (Flera svarsalternativ är möjliga)',
                   type: 'dropdown-multiple',
                   required: true,
                   order: 1,
@@ -591,13 +665,13 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                       followUpQuestions: [
                         {
                           id: 'other-depositor-details',
-                          text: 'Ange vem/vilka som kommer göra insättningar på kontot:',
+                          text: 'Ange vem/vilka som kommer göra återbetalningar på kontot:',
                           type: 'freetext',
                           required: true,
                           order: 1,
                           textConfig: {
                             maxLength: 200,
-                            placeholder: 'Beskriv vem som kommer göra insättningar...'
+                            placeholder: 'Beskriv vem som kommer göra återbetalningar...'
                           }
                         }
                       ]
@@ -606,7 +680,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                 },
                 {
                   id: 'payment-origin-country',
-                  text: 'Från vilket land kommer inbetalningarna?',
+                  text: 'Från vilket land kommer återbetalningarna?',
                   type: 'radio',
                   required: true,
                   order: 2,
@@ -774,11 +848,68 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                   ]
                 },
                 {
+                  id: 'withdrawal-frequency',
+                  text: 'Hur ofta kommer löpande uttag att göras på kontot per månad?',
+                  type: 'radio',
+                  required: true,
+                  order: 2,
+                  options: [
+                    { id: '0-2-withdrawals', label: '0–2 ggr per månad', value: '0-2-withdrawals' },
+                    { id: '3-5-withdrawals', label: '3–5 ggr per månad', value: '3-5-withdrawals' },
+                    { 
+                      id: 'more-than-5-withdrawals', 
+                      label: 'Mer än 5 ggr per månad', 
+                      value: 'more-than-5-withdrawals',
+                      followUpQuestions: [
+                        {
+                          id: 'withdrawal-frequency-details',
+                          text: 'Vänligen ange hur ofta uttag kommer att göras (ggr/mån):',
+                          type: 'freetext',
+                          required: true,
+                          order: 1,
+                          textConfig: {
+                            maxLength: 50,
+                            placeholder: 'Ange antal gånger per månad'
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: 'initial-deposit-amount',
+                  text: 'Hur mycket pengar kommer du att sätta in initialt (första 3 månaderna) vid öppnande av sparkontot?',
+                  type: 'radio',
+                  required: true,
+                  order: 3,
+                  options: [
+                    { id: 'under-10k', label: 'Mindre än 10 000 SEK', value: 'under-10k' },
+                    { id: '10k-49k', label: '10 000 – 49 999 SEK', value: '10k-49k' },
+                    { id: '50k-99k', label: '50 000 – 99 999 SEK', value: '50k-99k' },
+                    { id: '100k-499k', label: '100 000 – 499 999 SEK', value: '100k-499k' },
+                    { id: '500k-plus', label: '500 000 SEK eller mer', value: '500k-plus' }
+                  ]
+                },
+                {
+                  id: 'monthly-deposit-amount',
+                  text: 'Hur stora kommer dina insättningar att vara per månad?',
+                  type: 'radio',
+                  required: true,
+                  order: 4,
+                  options: [
+                    { id: 'under-5k', label: 'Mindre än 5 000 SEK', value: 'under-5k' },
+                    { id: '5k-9k', label: '5 000 – 9 999 SEK', value: '5k-9k' },
+                    { id: '10k-24k', label: '10 000 – 24 999 SEK', value: '10k-24k' },
+                    { id: '25k-49k', label: '25 000 – 49 999 SEK', value: '25k-49k' },
+                    { id: '50k-plus', label: '50 000 SEK eller mer', value: '50k-plus' }
+                  ]
+                },
+                {
                   id: 'deposit-depositors',
                   text: 'Vem kommer att göra insättningar på kontot? (Flera svarsalternativ är möjliga)',
                   type: 'dropdown-multiple',
                   required: true,
-                  order: 2,
+                  order: 5,
                   options: [
                     { id: 'account-holder', label: 'Kontohavare', value: 'account-holder' },
                     { id: 'joint-holder', label: 'Ev. medkontohavare', value: 'joint-holder' },
@@ -808,7 +939,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                   text: 'Från vilket land kommer insättningarna?',
                   type: 'radio',
                   required: true,
-                  order: 3,
+                  order: 6,
                   options: [
                     { id: 'sweden', label: 'Sverige', value: 'sweden' },
                     { 
@@ -930,15 +1061,32 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
               order: 2,
               questions: [
                 {
-                  id: 'loan-payment-frequency',
-                  text: 'Hur ofta kommer du betala av ditt lån?',
+                  id: 'extra-amortizations',
+                  text: 'Kommer extraamorteringar (betalningar utöver betalplan) att genomföras under lånets löptid?',
                   type: 'radio',
                   required: true,
                   order: 1,
                   options: [
-                    { id: '1-2-times', label: '1–2 ggr per månad', value: '1-2-times' },
-                    { id: '3-5-times', label: '3–5 ggr per månad', value: '3-5-times' },
-                    { id: 'more-than-5', label: 'Mer än 5 ggr per månad', value: 'more-than-5' }
+                    { 
+                      id: 'yes-extra-payments', 
+                      label: 'Ja', 
+                      value: 'yes-extra-payments',
+                      followUpQuestions: [
+                        {
+                          id: 'extra-payment-frequency',
+                          text: 'Hur ofta kommer extraamorteringar att göras?',
+                          type: 'number',
+                          required: true,
+                          order: 1,
+                          numberConfig: {
+                            min: 1,
+                            max: 365,
+                            placeholder: 'Ange antal gånger per år'
+                          }
+                        }
+                      ]
+                    },
+                    { id: 'no-extra-payments', label: 'Nej', value: 'no-extra-payments' }
                   ]
                 },
                 {
