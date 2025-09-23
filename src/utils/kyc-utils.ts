@@ -1,4 +1,4 @@
-import { KYCQuestionnaire, Question, AnswerOption, QuestionResponse, SegmentResponse } from '../types/kyc-types';
+import { KYCQuestionnaire, Question, QuestionResponse, SegmentResponse } from '../types/kyc-types';
 
 /**
  * Utility functions for working with KYC questionnaires
@@ -95,7 +95,7 @@ export class KYCQuestionnaireUtils {
   /**
    * Check if a question should be shown based on its conditions
    */
-  static shouldShowQuestion(question: Question, responses: Map<string, any>): boolean {
+  static shouldShowQuestion(question: Question, responses: Map<string, string | string[] | number | boolean>): boolean {
     if (!question.showCondition) return true;
     
     const dependencyValue = responses.get(question.showCondition.dependsOn);
@@ -109,7 +109,7 @@ export class KYCQuestionnaireUtils {
    */
   static getTriggeredFollowUpQuestions(
     question: Question, 
-    responses: Map<string, any>
+    responses: Map<string, string | string[] | number | boolean>
   ): Question[] {
     const currentAnswer = responses.get(question.id);
     if (!currentAnswer || !question.options) return [];
@@ -136,7 +136,7 @@ export class KYCQuestionnaireUtils {
   /**
    * Validate a response against question constraints
    */
-  static validateResponse(question: Question, value: any): { isValid: boolean; message?: string } {
+  static validateResponse(question: Question, value: string | string[] | number | boolean | null): { isValid: boolean; message?: string } {
     if (question.required && (!value || (Array.isArray(value) && value.length === 0))) {
       return { isValid: false, message: 'This field is required' };
     }
@@ -176,20 +176,22 @@ export class KYCQuestionnaireUtils {
         break;
 
       case 'date':
-        const dateValue = new Date(value);
-        if (isNaN(dateValue.getTime())) {
-          return { isValid: false, message: 'Must be a valid date' };
-        }
-        if (question.dateConfig?.minDate) {
-          const minDate = new Date(question.dateConfig.minDate);
-          if (dateValue < minDate) {
-            return { isValid: false, message: `Date must be after ${minDate.toDateString()}` };
+        if (typeof value === 'string') {
+          const dateValue = new Date(value);
+          if (isNaN(dateValue.getTime())) {
+            return { isValid: false, message: 'Must be a valid date' };
           }
-        }
-        if (question.dateConfig?.maxDate) {
-          const maxDate = new Date(question.dateConfig.maxDate);
-          if (dateValue > maxDate) {
-            return { isValid: false, message: `Date must be before ${maxDate.toDateString()}` };
+          if (question.dateConfig?.minDate) {
+            const minDate = new Date(question.dateConfig.minDate);
+            if (dateValue < minDate) {
+              return { isValid: false, message: `Date must be after ${minDate.toDateString()}` };
+            }
+          }
+          if (question.dateConfig?.maxDate) {
+            const maxDate = new Date(question.dateConfig.maxDate);
+            if (dateValue > maxDate) {
+              return { isValid: false, message: `Date must be before ${maxDate.toDateString()}` };
+            }
           }
         }
         break;

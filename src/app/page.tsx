@@ -72,7 +72,7 @@ export default function Home() {
             Choose {selectedSegment === 'consumer' ? 'Consumer' : 'Company'} Product
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-            Select which product you'd like to complete the KYC questionnaire for.
+            Select which product you&apos;d like to complete the KYC questionnaire for.
           </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
