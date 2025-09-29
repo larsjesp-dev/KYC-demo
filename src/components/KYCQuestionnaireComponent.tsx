@@ -236,20 +236,46 @@ export const KYCQuestionnaireComponent: React.FC<KYCQuestionnaireComponentProps>
         );
 
       case 'market-selector':
-        return (
-          <select
-            value={currentAnswer as string || ''}
-            onChange={(e) => handleAnswerChange(questionId, e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md text-black"
-          >
-            <option value="">Välj marknad...</option>
-            {question.marketConfig?.markets?.map((market) => (
-              <option key={market} value={market}>
-                {market}
-              </option>
-            ))}
-          </select>
-        );
+        if (question.marketConfig?.allowMultiple) {
+          // Multiple selection using checkboxes
+          const selectedMarkets = Array.isArray(currentAnswer) ? currentAnswer as string[] : [];
+          return (
+            <div className="space-y-2">
+              {question.marketConfig?.markets?.map((market) => (
+                <label key={market} className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedMarkets.includes(market)}
+                    onChange={(e) => {
+                      const updatedSelection = e.target.checked
+                        ? [...selectedMarkets, market]
+                        : selectedMarkets.filter(m => m !== market);
+                      handleAnswerChange(questionId, updatedSelection);
+                    }}
+                    className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+                  />
+                  <span className="text-sm text-black">{market}</span>
+                </label>
+              ))}
+            </div>
+          );
+        } else {
+          // Single selection using dropdown
+          return (
+            <select
+              value={currentAnswer as string || ''}
+              onChange={(e) => handleAnswerChange(questionId, e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
+            >
+              <option value="">Välj marknad...</option>
+              {question.marketConfig?.markets?.map((market) => (
+                <option key={market} value={market}>
+                  {market}
+                </option>
+              ))}
+            </select>
+          );
+        }
 
       default:
         return <div>Okänd frågetyp: {question.type}</div>;
