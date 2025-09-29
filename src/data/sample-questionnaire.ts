@@ -163,8 +163,8 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
             },
             {
               id: 'consumer-general-citizenship',
-              title: 'Frågor om medborgarskap',
-              description: 'Questions about citizenship',
+              title: 'Frågor om medborgarskap och skatterättslig hemvist',
+              description: 'Questions about citizenship and tax residence',
               order: 3,
               questions: [
                 {
@@ -210,21 +210,13 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                       value: 'no'
                     }
                   ]
-                }
-              ]
-            },
-            {
-              id: 'consumer-general-tax',
-              title: 'Frågor om skatterättslig hemvist',
-              description: 'Questions about tax residence',
-              order: 4,
-              questions: [
+                },
                 {
                   id: 'other-tax-residence',
                   text: 'Har du skattehemvist i något annat land än Sverige?',
                   type: 'radio',
                   required: true,
-                  order: 1,
+                  order: 3,
                   options: [
                     { 
                       id: 'yes-tax-residence', 
@@ -254,7 +246,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
               id: 'consumer-general-pep',
               title: 'Frågor om PEP/nära familjemedlem eller känd medarbetare till en PEP',
               description: 'Questions about Politically Exposed Persons',
-              order: 5,
+              order: 4,
               questions: [
                 {
                   id: 'pep-status',
@@ -597,7 +589,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                                 },
                                 {
                                   id: 'both-rca-resigned',
-                                  text: 'Är personen fortfarande aktiv i din roll?',
+                                  text: 'Är personen fortfarande aktiv i sin roll?',
                                   type: 'radio',
                                   required: true,
                                   order: 7,
