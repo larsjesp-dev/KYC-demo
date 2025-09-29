@@ -175,7 +175,8 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                   order: 1,
                   marketConfig: {
                     allowMultiple: false,
-                    markets: ['Sweden', 'Norway', 'Denmark', 'Finland', 'Germany', 'United Kingdom', 'United States', 'Other']
+                    markets: ['Sweden', 'Norway', 'Denmark', 'Finland', 'Germany', 'United Kingdom', 'United States', 'Other'],
+                    placeholder: 'Välj medborgarskap...'
                   }
                 },
                 {
@@ -221,13 +222,31 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                 {
                   id: 'other-tax-residence',
                   text: 'Har du skattehemvist i något annat land än Sverige?',
-                  type: 'freetext',
-                  required: false,
+                  type: 'radio',
+                  required: true,
                   order: 1,
-                  textConfig: {
-                    placeholder: 'Ange land(er) där du har skattehemvist (lämna tomt om ej aktuellt)',
-                    maxLength: 200
-                  }
+                  options: [
+                    { 
+                      id: 'yes-tax-residence', 
+                      label: 'Ja', 
+                      value: 'yes',
+                      followUpQuestions: [
+                        {
+                          id: 'tax-residence-countries',
+                          text: 'Ange land(er) där du har skattehemvist:',
+                          type: 'market-selector',
+                          required: true,
+                          order: 1,
+                          marketConfig: {
+                            allowMultiple: true,
+                            markets: ['Norge', 'Danmark', 'Finland', 'Island', 'Tyskland', 'Frankrike', 'Storbritannien', 'Nederländerna', 'Belgien', 'Spanien', 'Italien', 'Polen', 'Österrike', 'Schweiz', 'USA', 'Kanada', 'Australien', 'Kina', 'Japan', 'Singapore', 'Hong Kong', 'Indien', 'Brasilien', 'Other'],
+                            placeholder: 'Välj länder...'
+                          }
+                        }
+                      ]
+                    },
+                    { id: 'no-tax-residence', label: 'Nej', value: 'no' }
+                  ]
                 }
               ]
             },
@@ -578,7 +597,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                                 },
                                 {
                                   id: 'both-rca-resigned',
-                                  text: 'Har trätt ur PEP-ställningen?',
+                                  text: 'Är personen fortfarande aktiv i din roll?',
                                   type: 'radio',
                                   required: true,
                                   order: 7,
@@ -663,32 +682,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                     { 
                       id: 'balance-transfer', 
                       label: 'Överföring/saldoöverföring från annat kreditkort ("balance transfer"/samlingskredit på kort)', 
-                      value: 'balance-transfer' 
-                    },
-                    { 
-                      id: 'cash-withdrawal', 
-                      label: 'Kontantuttag', 
-                      value: 'cash-withdrawal' 
-                    },
-                    { 
-                      id: 'business-payments', 
-                      label: 'Betalningar kopplade till egen/annans affärsverksamhet', 
-                      value: 'business-payments' 
-                    },
-                    { 
-                      id: 'investments', 
-                      label: 'Investeringar/värdepapper/krypto', 
-                      value: 'investments' 
-                    },
-                    { 
-                      id: 'gambling', 
-                      label: 'Spel/betting', 
-                      value: 'gambling' 
-                    },
-                    { 
-                      id: 'person-transfers', 
-                      label: 'Överföringar till privatpersoner', 
-                      value: 'person-transfers',
+                      value: 'balance-transfer',
                       followUpQuestions: [
                         {
                           id: 'international-transfers',
@@ -716,6 +710,31 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                           ]
                         }
                       ]
+                    },
+                    { 
+                      id: 'cash-withdrawal', 
+                      label: 'Kontantuttag', 
+                      value: 'cash-withdrawal' 
+                    },
+                    { 
+                      id: 'business-payments', 
+                      label: 'Betalningar kopplade till egen/annans affärsverksamhet', 
+                      value: 'business-payments' 
+                    },
+                    { 
+                      id: 'investments', 
+                      label: 'Investeringar/värdepapper/krypto', 
+                      value: 'investments' 
+                    },
+                    { 
+                      id: 'gambling', 
+                      label: 'Spel/betting', 
+                      value: 'gambling' 
+                    },
+                    { 
+                      id: 'person-transfers', 
+                      label: 'Överföringar till privatpersoner', 
+                      value: 'person-transfers' 
                     },
                     { 
                       id: 'other-specify', 

@@ -58,6 +58,7 @@ export interface Question {
   marketConfig?: {
     allowMultiple?: boolean;
     markets?: string[];
+    placeholder?: string;
   };
   
   // Validation rules

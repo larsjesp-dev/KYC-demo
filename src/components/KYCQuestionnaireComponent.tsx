@@ -156,7 +156,7 @@ export const KYCQuestionnaireComponent: React.FC<KYCQuestionnaireComponentProps>
                 onChange={(e) => handleAnswerChange(countryQuestionId, e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded-md text-black"
               >
-                <option value="">Välj land...</option>
+                <option value="">{nextQuestion.marketConfig?.placeholder || 'Välj land...'}</option>
                 {nextQuestion.marketConfig?.markets?.map((market) => (
                   <option key={market} value={market}>
                     {market}
@@ -338,7 +338,7 @@ export const KYCQuestionnaireComponent: React.FC<KYCQuestionnaireComponentProps>
               onChange={(e) => handleAnswerChange(questionId, e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-md text-black"
             >
-              <option value="">Välj marknad...</option>
+              <option value="">{question.marketConfig?.placeholder || 'Välj marknad...'}</option>
               {question.marketConfig?.markets?.map((market) => (
                 <option key={market} value={market}>
                   {market}
