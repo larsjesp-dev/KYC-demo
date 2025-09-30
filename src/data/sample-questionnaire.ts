@@ -69,14 +69,47 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                   }
                 },
                 {
-                  id: 'registered-address',
-                  text: 'Folkbokföringsadress - Adress, Postnummer, Ort',
+                  id: 'registered-address-line1',
+                  text: 'Adress linje 1',
                   type: 'freetext',
                   required: true,
                   order: 5,
                   textConfig: {
-                    placeholder: 'Ange din folkbokföringsadress',
-                    maxLength: 200
+                    placeholder: 'T.ex. Storgatan 123',
+                    maxLength: 100
+                  }
+                },
+                {
+                  id: 'registered-address-line2',
+                  text: 'Adress linje 2',
+                  type: 'freetext',
+                  required: false,
+                  order: 6,
+                  textConfig: {
+                    placeholder: 'Lägenhetsnummer, c/o, etc. (valfritt)',
+                    maxLength: 100
+                  }
+                },
+                {
+                  id: 'registered-postal-code',
+                  text: 'Postnummer',
+                  type: 'freetext',
+                  required: true,
+                  order: 7,
+                  textConfig: {
+                    placeholder: 'T.ex. 123 45',
+                    maxLength: 10
+                  }
+                },
+                {
+                  id: 'registered-city',
+                  text: 'Ort',
+                  type: 'freetext',
+                  required: true,
+                  order: 8,
+                  textConfig: {
+                    placeholder: 'T.ex. Stockholm',
+                    maxLength: 50
                   }
                 },
                 {
@@ -84,7 +117,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                   text: 'Land',
                   type: 'market-selector',
                   required: true,
-                  order: 6,
+                  order: 9,
                   marketConfig: {
                     allowMultiple: false,
                     markets: ['Sverige', 'Norge', 'Danmark', 'Finland', 'Island', 'Tyskland', 'Frankrike', 'Storbritannien', 'Nederländerna', 'Belgien', 'Spanien', 'Italien', 'Polen', 'Österrike', 'Schweiz', 'USA', 'Kanada', 'Australien', 'Other']
@@ -95,7 +128,7 @@ export const sampleKYCQuestionnaire: KYCQuestionnaire = {
                   text: 'Annan adress - Särskild adress/tillfällig',
                   type: 'freetext',
                   required: false,
-                  order: 7,
+                  order: 10,
                   textConfig: {
                     placeholder: 'Ange annan adress (valfritt)',
                     maxLength: 200

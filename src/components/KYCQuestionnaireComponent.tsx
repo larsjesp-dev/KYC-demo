@@ -109,74 +109,8 @@ export const KYCQuestionnaireComponent: React.FC<KYCQuestionnaireComponentProps>
   const isFirstStep = currentGroupIndex === 0 && currentSubgroupIndex === 0;
 
   const renderQuestionsWithAddressGrouping = (questions: Question[]) => {
-    const renderedQuestions: React.ReactElement[] = [];
-    let i = 0;
-    
-    while (i < questions.length) {
-      const currentQuestion = questions[i];
-      const nextQuestion = questions[i + 1];
-      
-      // Check if this is the address question followed by the country question
-      if (currentQuestion.id === 'registered-address' && 
-          nextQuestion && nextQuestion.id === 'registered-country') {
-        
-        // Render both questions together in a single container
-        const addressQuestionId = currentQuestion.id;
-        const countryQuestionId = nextQuestion.id;
-        const addressResponse = responses.find(r => r.questionId === addressQuestionId);
-        const countryResponse = responses.find(r => r.questionId === countryQuestionId);
-        
-        renderedQuestions.push(
-          <div key={`${addressQuestionId}-${countryQuestionId}`} className="mb-6 p-4 border border-gray-200 rounded-lg">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Folkbokföringsadress - Adress, Postnummer, Ort
-              <span className="text-red-500 ml-1">*</span>
-            </label>
-            
-            {/* Address input */}
-            <div className="mb-4">
-              <input
-                type="text"
-                value={addressResponse?.value as string || ''}
-                onChange={(e) => handleAnswerChange(addressQuestionId, e.target.value)}
-                placeholder="Ange din folkbokföringsadress"
-                maxLength={200}
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-            </div>
-            
-            {/* Country selector */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Land
-                <span className="text-red-500 ml-1">*</span>
-              </label>
-              <select
-                value={countryResponse?.value as string || ''}
-                onChange={(e) => handleAnswerChange(countryQuestionId, e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              >
-                <option value="">{nextQuestion.marketConfig?.placeholder || 'Välj land...'}</option>
-                {nextQuestion.marketConfig?.markets?.map((market) => (
-                  <option key={market} value={market}>
-                    {market}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        );
-        
-        // Skip the next question since we've rendered it together with this one
-        i += 2;
-      } else {
-        // Render normal question
-        renderedQuestions.push(renderQuestion(currentQuestion));
-        i++;
-      }
-    }
-    
-    return renderedQuestions;
+    // Since we now have 5 separate address fields, no special grouping needed
+    return questions.map((question) => renderQuestion(question));
   };
 
   const renderQuestion = (question: Question, parentPrefix: string = '') => {
